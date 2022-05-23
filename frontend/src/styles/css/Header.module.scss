@@ -1,0 +1,17 @@
+.topHeader {
+    position: sticky;
+    top: 0;
+    width: 100%;
+}
+
+.nav {
+    display: inline-block;
+}
+
+
+.bottomHeader {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    background-color: rgb(210, 210, 234) !important;
+}

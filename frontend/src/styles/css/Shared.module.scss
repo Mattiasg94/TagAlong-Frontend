@@ -1,0 +1,103 @@
+@import 'Variables.module';
+
+.container {
+
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+        color: $tinted-color;
+    }
+
+    p {
+        color: $tinted2-color;
+    }
+}
+
+.center {
+    text-align: center;
+}
+
+.VertCenter {
+    position: absolute;
+    left: 50%;
+    top: 30%;
+    -moz-transform: translate(-50%, -50%);
+    /* Firefox */
+    -ms-transform: translate(-50%, -50%);
+    /* IE 9 */
+    -webkit-transform: translate(-50%, -50%);
+    /* Safari and Chrome*/
+    -o-transform: translate(-50%, -50%);
+    /* Opera */
+    transform: translate(-50%, -50%);
+    width: 100%;
+}
+
+
+.button {
+    font-weight: 700;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: middle;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    // border: 0px solid transparent;
+    border: 0;
+    padding: 0.36rem 0.7rem;
+    font-size: 15px;
+    line-height: 1.5;
+    width: 75px;
+    transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+}
+
+
+.add {
+    color: white;
+    background-color: $add-color;
+}
+
+.def {
+    color: white;
+    background-color: $def-color;
+}
+
+.remove {
+    color: white;
+    background-color: $remove-color;
+}
+
+.ButtonsDiv {
+    // display: inline-block;
+    // margin: auto;
+    // width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.ButtonsDiv button {
+    flex: 1;
+}
+
+.TextInput input[type=email],
+.TextInput input[type=password],
+.TextInput input[type=text],
+.TextInput textarea {
+    height: 40px;
+    color: $tinted2-color;
+    width: 100%;
+    border: none;
+    border-bottom: 1px solid $tinted2-color;
+    padding: 2%;
+}
+
+.TextInput input[type=text]:focus,
+.TextInput textarea:focus {
+    outline: none;
+    border: 0 !important;
+    border-bottom: 3px solid $def-color  !important;
+}

@@ -1,0 +1,219 @@
+/* @import url(fonts.css); */
+
+.calBtn {
+  cursor: pointer;
+  font-weight: 400;
+  text-align: center;
+  white-space: nowrap;
+  vertical-align: middle;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  border: 1px solid transparent;
+  padding: 0.36rem 0.7rem;
+  font-size: 1rem;
+  line-height: 1.5;
+  border-radius: 0.4rem;
+  transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+}
+
+.mybtn {
+  display: inline-block;
+  font-weight: 400;
+  text-align: center;
+  white-space: nowrap;
+  vertical-align: middle;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  border: 1px solid transparent;
+  padding: 0.36rem 0.7rem;
+  font-size: 1rem;
+  line-height: 1.5;
+  border-radius: 0.4rem;
+  transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+}
+
+@media screen and (prefers-reduced-motion: reduce) {
+  .mybtn {
+    transition: none;
+  }
+}
+
+.mybtn:hover, .mybtn:focus {
+  text-decoration: none;
+}
+
+.mybtn:focus, .mybtn.focus {
+  outline: 0;
+  box-shadow: 0 1px 2px 1px #00000020;
+}
+
+.mybtn.disabled, .mybtn:disabled {
+  opacity: 0.65;
+}
+
+.mybtn:not(:disabled):not(.disabled) {
+  cursor: pointer;
+}
+
+a.mybtn.disabled, fieldset:disabled a.mybtn {
+  pointer-events: none;
+}
+
+.mybtn-link {
+  font-weight: 400;
+  color: #707070;
+  background-color: transparent;
+}
+
+.mybtn-link:hover {
+  color: #000000;
+  text-decoration: underline;
+  background-color: transparent;
+  border-color: transparent;
+}
+
+.mybtn-link:focus, .mybtn-link.focus {
+  text-decoration: underline;
+  border-color: transparent;
+  box-shadow: none;
+}
+
+.mybtn-def {
+  color: #707070;
+  background-color: #fff;
+  border: 0px solid #707070 !important;
+  box-shadow: 0 1px 2px 1px #00000020;
+  margin-right: 2px;
+  margin-left: 2px;
+}
+
+.mybtn-def:hover {
+  background-color: #dddddd;
+}
+
+.mybtn-def.disabled, .mybtn-def:disabled {
+  color: #fff;
+  background-color: #007bff;
+}
+
+.mybtn-def:not(:disabled):not(.disabled):active, .mybtn-def:not(:disabled):not(.disabled).active, .show>.mybtn-def.dropdown-toggle {
+  color: #fff;
+  background-color: #dddddd;
+}
+
+.mybtn-current {
+  color: #fff;
+  background-color: #94e6ac;
+}
+
+.mybtn-del {
+  color: #c48585;
+  background-color: #fff;
+  border: 0px !important;
+  box-shadow: 0 1px 2px 1px #00000020;
+}
+
+
+.mybtn-del:hover {
+  background-color: #dddddd;
+}
+
+.mybtn-red {
+  color: #fff;
+  background-color: #c48585;
+  border: 0px !important;
+  box-shadow: 0 1px 2px 1px #00000020;
+}
+
+
+.mybtn-red:hover {
+  background-color: #dddddd;
+}
+
+.mybtn-add {
+  color: #81b989;
+  background-color: #fff;
+  border: 0px solid #a5ceab !important;
+  box-shadow: 0 1px 2px 1px #00000020;
+}
+
+.mybtn-add:hover {
+  background-color: #dddddd;
+}
+
+.mybtn-lg {
+  padding: 0.5rem 0.7rem;
+  font-size: 1.2rem;
+  line-height: 1.7;
+}
+
+.mybtn-sm {
+  padding: 0.25rem 0.5rem;
+  font-size: 0.875rem;
+  line-height: 1.5;
+}
+
+.mybtn-xs {
+  padding: 0.2rem 0.4rem;
+  font-size: 0.7rem;
+  line-height: 1.3;
+}
+
+.menu-btn {
+  top: 5px;
+  right: 5px;
+  display: block;
+  position: absolute;
+}
+
+.back-btn {
+  top: 5px;
+  left: 5px;
+  display: block;
+  position: absolute;
+}
+
+.grow {
+  color: #65b5f6;
+  background-color: transparent;
+  border: 1px solid #65b5f6;
+  border-radius: 4px;
+  padding: 0 16px;
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+}
+
+.grow:hover {
+  transform: scale(1.1);
+}
+
+
+
+
+.mybtn-orange {
+  color: white;
+  background-color: var(--orange);
+  border: 0px solid var(--orange) !important;
+  box-shadow: 0 1px 2px 1px #00000020;
+  margin-right: 2px;
+  margin-left: 2px;
+}
+
+.mybtn-orange:hover {
+  background-color: #e9d5d0;
+}
+
+.mybtn-orange.disabled, .mybtn-orange:disabled {
+  color: #fff;
+  background-color: #c24526;
+}
+
+.mybtn-orange:not(:disabled):not(.disabled):active, .mybtn-orange:not(:disabled):not(.disabled).active, .show>.mybtn-orange.dropdown-toggle {
+  color: #fff;
+  background-color: #dddddd;
+}
+

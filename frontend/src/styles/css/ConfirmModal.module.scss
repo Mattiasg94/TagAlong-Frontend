@@ -1,0 +1,27 @@
+@import 'Variables.module';
+
+.Overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(152, 148, 148, 0.421);
+}
+
+.Modal {
+    position: absolute;
+    top: 30%;
+    left: 2%;
+    right: 2%;
+    // bottom: 30%;
+    background-color: white;
+    // padding: 2%;
+    overflow-y: auto;
+    border-radius: 10px;
+
+
+    h4 {
+        font-size: 16px;
+    }
+}

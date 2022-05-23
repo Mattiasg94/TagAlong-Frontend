@@ -1,0 +1,66 @@
+.displayNone {
+  display: none;
+}
+
+/* .alertMessage.fadeIn {
+  visibility: visible;
+  opacity: 1;
+  transition: visibility 0s linear 0s, opacity 300ms;
+} */
+
+
+.alertMessage {
+  padding: 20px;
+  margin-bottom: 15px;
+  border: 1px solid transparent;
+  border-radius: 0.25rem;
+  position: relative;
+  padding: 0.75rem 1.25rem;
+  margin: 0 !important;
+}
+
+/* The close button */
+.alertMessage>span {
+  margin-left: 15px;
+  font-weight: bold;
+  float: right;
+  font-size: 22px;
+  line-height: 20px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.alertMessageInfo {
+  background-color: #d1ecf1;
+  border-color: #bee5eb;
+}
+
+.alertMessageInfo>p {
+  margin: 0;
+  color: #0c5460;
+}
+
+/* The close button */
+.alertMessageInfo>span {
+  color: #5da2af;
+}
+
+.alertMessageDanger {
+  background-color: #f8d7da;
+  border-color: #f5c6cb;
+}
+
+.alertMessageDanger>p {
+  margin: 0;
+  color: #721c24;
+}
+
+/* The close button */
+.alertMessageDanger>span {
+  color: #cc7881;
+}
+
+/* When moving the mouse over the close button */
+.alertMessage>span:hover {
+  color: black;
+}

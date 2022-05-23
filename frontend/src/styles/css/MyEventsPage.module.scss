@@ -1,0 +1,21 @@
+@import 'variables.module';
+
+.Tab {
+    width: 50vw;
+    color: $tinted-color;
+    background-color: white;
+    border: 1px;
+    border-color: $tinted-color;
+    height: 50px;
+    font-size: 20px;
+}
+
+.Tab.Active {
+    color: white;
+    background-color: $tinted-color;
+}
+
+.TabDiv {
+    display: inline-block;
+    margin-bottom: 5px;
+}
