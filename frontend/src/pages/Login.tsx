@@ -19,7 +19,8 @@ function Login() {
   const navigate = useNavigate();
 
   const handleLogin = (email: string, password: string) => {
-    let username = 'mattias'
+    // let username = 'mattias'
+    let username = email
     axios
       .post(`api/auth/login/`, { username, password }, { headers: headers })
       .then((res) => {
@@ -41,7 +42,7 @@ function Login() {
 
   const formik = useFormik({
     initialValues: {
-      email: "mattias@hotmail.com",
+      email: "mattias",
       password: "testtest",
     },
     onSubmit: (values) => {
@@ -62,7 +63,7 @@ function Login() {
           <div className={SStyles.TextInput}>
             <input
               id="email"
-              type="email"
+              type="text"
               placeholder="Email"
               name="email"
               value={formik.values.email}

@@ -62,7 +62,7 @@ const MyFriendRequests = ({ users, currentUser, fetchFriendRequests, fetchUsers 
     function renderMyFriendRequests() {
         let usersThatSentFriendRequest = users.filter((user) => { return myFriendRequests.map(fr => fr.from_user).includes(user.id) })
         return usersThatSentFriendRequest.map((user) => (
-            <div className={Styles.user} key={user.id}>
+            <div className={Styles.user} key={`friendRequest-user-${user.id}`}>
                 <article >
                     <table>
                         <tbody>

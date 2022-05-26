@@ -14,12 +14,18 @@ import HandleInvites from './HandleInvites';
 import { useLocation } from 'react-router-dom';
 import { Event } from '../types';
 import SStyles from '../styles/css/Shared.module.scss'
-import ShowEventModal from './modales/ShowEventModal';
 
 const headers: any = { "X-CSRFTOKEN": csrftoken }
 
+enum FORM_BTN {
+  POST_EVENT = 'POST_EVENT',
+  UPDATE_EVENT = 'UPDATE_EVENT',
+  ADD_TEMPLATE = 'ADD_TEMPLATE',
+  UPDATE_TEMPLATE = 'UPDATE_TEMPLATE',
+}
 
 type EventFormType = {
+  INITIAL_FORM_STATE: Template
   setNumInvites: React.Dispatch<React.SetStateAction<number>>,
   numInvites: number,
   setTemplateIsActive: any,
@@ -28,7 +34,7 @@ type EventFormType = {
   openMessageBar: any
   fetchTemplates: any
 }
-const EventForm = ({ setNumInvites, numInvites, setTemplateIsActive, formEventData, setFormEventData, openMessageBar, fetchTemplates }: EventFormType) => {
+const EventForm = ({ INITIAL_FORM_STATE, setNumInvites, numInvites, setTemplateIsActive, formEventData, setFormEventData, openMessageBar, fetchTemplates }: EventFormType) => {
   const currentUser = FetchCurrentUser()
   const [myFriends, setMyFriends] = useState<User[]>([]);
   const location = useLocation();
@@ -54,7 +60,7 @@ const EventForm = ({ setNumInvites, numInvites, setTemplateIsActive, formEventDa
 
   function handleValidation(formData: FormData) {
     let isValid = true
-    if (formData.getAll('invites').length === 0) {
+    if (formData.getAll('invites').length === 1) {
       openMessageBar('error', "You must select at least one user.")
       isValid = false
     }
@@ -64,7 +70,6 @@ const EventForm = ({ setNumInvites, numInvites, setTemplateIsActive, formEventDa
   function handleSubmit(event: any) {
     event.preventDefault(event);
     const formData = new FormData(event.target)
-
     for (var key in formEventData.invites) {
       // @ts-ignore
       formData.append('invites', formEventData.invites[key].id);
@@ -75,47 +80,48 @@ const EventForm = ({ setNumInvites, numInvites, setTemplateIsActive, formEventDa
       else// @ts-ignore
         formData.append(key, currentUser[key]);
     }
+    let btnIdPressed = event.nativeEvent.submitter.id
     if (!handleValidation(formData))
       return
     // for (let p of formData) {
     //   console.log(p[0], p[1])
     // }
-    let btnIdPressed = event.nativeEvent.submitter.id
-    if (btnIdPressed === 'postEventBtn') {
+
+    if (btnIdPressed === FORM_BTN.POST_EVENT) {
       axios.post(`api/events/${currentUser.id}/`, formData, { headers: headers })
         .then((res) => {
-          openMessageBar(res.data.msgs)
-          setFormEventData({ user: '', id: '', title: '', description: '', date: new Date(), adress_link: '', adress: '', invites: [] })
+          openMessageBar(res.data.msgType, res.data.msg)
+          setFormEventData(INITIAL_FORM_STATE)
           SendEmail(formData.getAll('invites').join(','), 'eventCreated', res.data.id)
           setTemplateIsActive(0)
-          setNumInvites(0)
+          setNumInvites(1)
         }).catch(errors => console.warn(errors));
-    } else if (btnIdPressed === "updateEventBtn") {
+    } else if (btnIdPressed === FORM_BTN.UPDATE_EVENT) {
       axios.put(`api/event/${formData.get('id')}/`, formData, { headers: headers })
         .then((res) => {
-          openMessageBar(res.data.msgs)
-          setFormEventData({ user: '', id: '', title: '', description: '', date: new Date(), adress_link: '', adress: '', invites: [] })
+          openMessageBar(res.data.msgType, res.data.msg)
+          setFormEventData(INITIAL_FORM_STATE)
           setIsEditingPost(false)
-          setNumInvites(0)
+          setNumInvites(1)
         }).catch(errors => console.warn(errors));
     }
-    else if (btnIdPressed === 'addTemplateBtn') {
+    else if (btnIdPressed === FORM_BTN.ADD_TEMPLATE) {
       axios.post(`api/templates/${currentUser.id}/`, formData, { headers: headers })
         .then((res) => {
-          openMessageBar(res.data.msgs)
-          setFormEventData({ user: '', id: '', title: '', description: '', date: new Date(), adress_link: '', adress: '', invites: [] })
+          openMessageBar(res.data.msgType, res.data.msg)
+          setFormEventData(INITIAL_FORM_STATE)
           fetchTemplates()
-          setNumInvites(0)
+          setNumInvites(1)
         }).catch(errors => console.warn(errors));
     }
-    else if (btnIdPressed === "updatetemplatetBtn") {
+    else if (btnIdPressed === FORM_BTN.UPDATE_TEMPLATE) {
       axios.put(`api/template/${formData.get('id')}/`, formData, { headers: headers })
         .then((res) => {
-          openMessageBar(res.data.msgs)
-          setFormEventData({ user: '', id: '', title: '', description: '', date: new Date(), adress_link: '', adress: '', invites: [] })
+          openMessageBar(res.data.msgType, res.data.msg)
+          setFormEventData(INITIAL_FORM_STATE)
           fetchTemplates()
           setTemplateIsActive(0)
-          setNumInvites(0)
+          setNumInvites(1)
         }).catch(errors => console.warn(errors));
     }
   }
@@ -129,7 +135,9 @@ const EventForm = ({ setNumInvites, numInvites, setTemplateIsActive, formEventDa
     }
   }, [currentUser])
 
-
+  function bajs(e: any) {
+    setFormEventData({ ...formEventData, max_invites: e!.target.checked ? formEventData.invites.length : '' })
+  }
 
   return (
     <div className={SStyles.container}>
@@ -143,21 +151,29 @@ const EventForm = ({ setNumInvites, numInvites, setTemplateIsActive, formEventDa
           <textarea required placeholder="Description" name='description' value={formEventData.description} onChange={e => { setFormEventData({ ...formEventData, [e.target.name]: e.target.value }) }} />
           <input required placeholder="Adress" name='adress' type="text" value={formEventData.adress} onChange={e => { setFormEventData({ ...formEventData, [e.target.name]: e.target.value }) }} />
           <input required placeholder="Adress Link" name='adress_link' type="text" value={formEventData.adress_link} onChange={e => { setFormEventData({ ...formEventData, [e.target.name]: e.target.value }) }} />
+          <div className={`${Styles.MaxNumberBtnInputContainer}`} >
+            <div className={`${SStyles.ckButton}`}>
+              <label>
+                <input onChange={(e) => { bajs(e) }} type="checkbox" /><span>Private</span>
+              </label>
+            </div>
+            <input required placeholder="Max invites" name='max_invites' type="number" value={formEventData.max_invites} onChange={e => { setFormEventData({ ...formEventData, [e.target.name]: e.target.value }) }} />
+          </div>
           <button className={`${SStyles.button} ${SStyles.def} w-100 mt-2 mb-2`} type='button' onClick={() => { openModal() }}>Handle invites <FontAwesomeIcon icon={fontawesomeIcon.faUserFriends} />{numInvites ? numInvites : ''}</button>
           <div className={`${SStyles.ButtonsDiv} mb-2`}>
             {isEditingPost ?
-              <button id='updateEventBtn' type='submit' className={`${SStyles.button} ${SStyles.add} w-100`}>Update Event <FontAwesomeIcon icon={fontawesomeIcon.faSave} /></button>
-              : <button id='postEventBtn' type='submit' className={`${SStyles.button} ${SStyles.add} w-100`}>Post Event <FontAwesomeIcon icon={fontawesomeIcon.faSave} /></button>
+              <button id={FORM_BTN.UPDATE_EVENT} type='submit' className={`${SStyles.button} ${SStyles.add} w-100`}>Update Event <FontAwesomeIcon icon={fontawesomeIcon.faSave} /></button>
+              : <button id={FORM_BTN.POST_EVENT} type='submit' className={`${SStyles.button} ${SStyles.add} w-100`}>Post Event <FontAwesomeIcon icon={fontawesomeIcon.faSave} /></button>
             }
             {(formEventData.id && !isEditingPost) ?
-              <button id='updatetemplatetBtn' type='submit' className={`${SStyles.button} ${SStyles.add} w-100`}>Update Template <FontAwesomeIcon icon={fontawesomeIcon.faSave} /></button>
-              : <button id='addTemplateBtn' type='submit' className={`${SStyles.button} ${SStyles.add} w-100`}>Add Template <FontAwesomeIcon icon={fontawesomeIcon.faSave} /></button>
+              <button id={FORM_BTN.UPDATE_TEMPLATE} type='submit' className={`${SStyles.button} ${SStyles.add} w-100`}>Update Template <FontAwesomeIcon icon={fontawesomeIcon.faSave} /></button>
+              : <button id={FORM_BTN.ADD_TEMPLATE} type='submit' className={`${SStyles.button} ${SStyles.add} w-100`}>Add Template <FontAwesomeIcon icon={fontawesomeIcon.faSave} /></button>
             }
           </div>
 
         </article>
       </form>
-      <HandleInvites modalIsOpen={modalIsOpen} setModalIsOpen={setModalIsOpen} myFriends={myFriends} formEventData={formEventData} setFormEventData={setFormEventData} setNumInvites={setNumInvites} />
+      <HandleInvites currentUser={currentUser} modalIsOpen={modalIsOpen} setModalIsOpen={setModalIsOpen} myFriends={myFriends} formEventData={formEventData} setFormEventData={setFormEventData} setNumInvites={setNumInvites} />
     </div >
   )
 }

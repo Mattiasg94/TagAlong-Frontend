@@ -10,7 +10,7 @@ import { RootState } from '../store'
 import authSlice from "../store/slices/auth";
 import { useDispatch, useSelector } from "react-redux";
 import Styles from '../styles/css/Header.module.scss'
-
+import logo from '../styles/images/logo.png'
 
 export default function Header() {
   const currentUser = FetchCurrentUser() //TODO do i need refresh user in other pages if i do it in header?
@@ -26,24 +26,21 @@ export default function Header() {
     <>
       <Navbar bg="light" expand="lg" className={Styles.topHeader}>
         <Container>
-          <Navbar.Brand href="#home">TagAlong</Navbar.Brand>
           <Navbar aria-controls="basic-navbar-nav" />
           <Nav className={Styles.nav} >
             {auth.account ?
               <>
-                <Link className="mybtn mybtn-def" to="/users"><FontAwesomeIcon icon={fontawesomeIcon.faUserFriends} /></Link>
-                <Link className="mybtn mybtn-def" to="/profile"><FontAwesomeIcon icon={fontawesomeIcon.faUser} /></Link>
-                <button className="mybtn mybtn-def" onClick={handleLogout}><FontAwesomeIcon icon={fontawesomeIcon.faSignOut} /></button>
+                <Link className={Styles.NavBtn} to="/users"><FontAwesomeIcon icon={fontawesomeIcon.faUserFriends} /></Link>
+                <Link className={Styles.NavBtn} to="/profile"><FontAwesomeIcon icon={fontawesomeIcon.faUser} /></Link>
+                <button className={Styles.NavBtn} onClick={handleLogout}><FontAwesomeIcon icon={fontawesomeIcon.faSignOut} /></button>
               </>
-              : ''}
+              : <>
+                <Link to="/landingPage"><img width={120} src={logo} alt="" /></Link>
+                <Link className={Styles.NavBtn} to="/register">Sign up</Link>
+                <Link className={Styles.NavBtn} to="/login">Login</Link>
+              </>}
           </Nav>
-          {auth.account ?
-            '' :
-            <>
-              <Link className="mybtn mybtn-def" to="/login">Login</Link>
-              <Link className="mybtn mybtn-def" to="/register">Sign up</Link>
-            </>
-          }
+
         </Container>
       </Navbar>
       <Outlet />

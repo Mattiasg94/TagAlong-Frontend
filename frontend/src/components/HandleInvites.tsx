@@ -8,6 +8,7 @@ import Modal from 'react-modal';
 
 
 type HandleInvitesType = {
+    currentUser: User
     modalIsOpen: any,
     setModalIsOpen: any,
     myFriends: User[],
@@ -16,7 +17,7 @@ type HandleInvitesType = {
     setNumInvites: any,
 
 }
-const HandleInvites = ({ modalIsOpen, setModalIsOpen, myFriends, formEventData, setFormEventData, setNumInvites }: HandleInvitesType) => {
+const HandleInvites = ({ currentUser, modalIsOpen, setModalIsOpen, myFriends, formEventData, setFormEventData, setNumInvites }: HandleInvitesType) => {
 
     function afterOpenModal() {
         //@ts-ignore
@@ -39,7 +40,7 @@ const HandleInvites = ({ modalIsOpen, setModalIsOpen, myFriends, formEventData, 
 
     function renderUsers() {
         return myFriends.map((friend) => (
-            <div key={friend.id} className={Styles.user}>
+            <div key={`handleInvites-friend-${friend.id}`} className={Styles.user}>
                 <article >
                     <table>
                         <tbody>
@@ -54,7 +55,7 @@ const HandleInvites = ({ modalIsOpen, setModalIsOpen, myFriends, formEventData, 
                                     <button className={Styles.add} onClick={() => { SetInvites(friend, true) }}>Add</button>
                                 </td>
                                 <td className={Styles.buttonTd} style={{ display: !formEventData.invites.map((i) => i.id).includes(friend?.id!) ? 'none' : '' }}>
-                                    <button className={Styles.remove} onClick={() => { SetInvites(friend) }}>Remove</button>
+                                    <button className={Styles.remove} onClick={() => { SetInvites(friend) }} disabled={currentUser.id === friend.id}>Remove</button>
                                 </td>
                             </tr>
                         </tbody>

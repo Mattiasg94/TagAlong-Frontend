@@ -16,12 +16,13 @@ import Register from './pages/Register';
 import HeaderBottom from './components/HeaderBottom';
 import FriendProfile from './components/FriendProfile';
 import MyEventsPage from './pages/MyEventsPage';
+import LandingPage from './pages/LandingPage';
 
 
 function App() {
   return (
     <Router>
-      <div className={GStyles.bajs}>
+      <div className={GStyles.global}>
         <Routes>
           <Route path="/" element={<HeaderBottom />}>
             <Route path="/" element={<HeaderTop />}>
@@ -33,6 +34,7 @@ function App() {
                 <Route path="profile" element={<Profile />} />
                 <Route path="friendprofile" element={<FriendProfile />} />
               </Route>
+              <Route path="landingPage" element={<LandingPage />} />
               <Route path="login" element={<Login />} />
               <Route path="register" element={<Register />} />
             </Route>

@@ -14,9 +14,8 @@ type EventItemType = {
 }
 
 const EventItem = ({ events, openModal, EventAction, EventActionBtnText }: EventItemType): JSX.Element => {
-
     return <>{events.map((event) => (
-        <div className={Styles.event} key={event.id}>
+        <div className={Styles.event} key={`event-${event.id}`}>
             <article onClick={() => openModal(event)}>
                 <table>
                     <tbody>
@@ -30,7 +29,7 @@ const EventItem = ({ events, openModal, EventAction, EventActionBtnText }: Event
                         </tr>
                         <tr>
                             <td  >
-                                <p><FontAwesomeIcon icon={fontawesomeIcon.faUserFriends} /> <b>{event.invites.length}</b></p>
+                                <p><FontAwesomeIcon icon={fontawesomeIcon.faUserFriends} /> <b>{event.invites.length - event.participants.length}</b></p>
                             </td>
                             <td>
                                 <p><FontAwesomeIcon icon={fontawesomeIcon.faUserCheck} /> <b>{event.participants.length}</b></p>

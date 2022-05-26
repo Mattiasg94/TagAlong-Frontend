@@ -6,9 +6,11 @@ import Friends from '../components/Friends';
 import FilterUsers from '../components/FilterUsers';
 import { FriendRequest, User } from '../types';
 import SStyles from '../styles/css/Shared.module.scss'
+import LoadingSpinner from '../hooks/LoadingSpinner';
 
 
 const FriendsPage = () => {
+    const [isLoading, setIsLoading] = useState(true);
     const [users, setUsers] = useState<User[]>([]);
     const [filteredUsers, setFilteredUsers] = useState<User[]>([]);
     const [friendRequests, setFriendRequests] = useState<FriendRequest[]>([]);
@@ -32,6 +34,7 @@ const FriendsPage = () => {
                 setUsers(res.data)
                 //@ts-ignore
                 setFilteredUsers(res.data.filter(user => currentUser.friends.map((friend) => friend.id).includes(user.id)))
+                setIsLoading(false)
             })
             .catch((error) => console.warn(error));
     }
@@ -44,6 +47,7 @@ const FriendsPage = () => {
 
     return (
         <div className={SStyles.container}>
+            {isLoading ? <LoadingSpinner /> : ''}
             <MyFriendRequests users={users} currentUser={currentUser} fetchFriendRequests={fetchFriendRequests} fetchUsers={fetchUsers} />
             {(friendRequests.length === 0) ?
                 <div className={`${SStyles.center} mt-2`}>

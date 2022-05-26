@@ -21,17 +21,17 @@ export default function HeaderBottom() {
     navigate("/login");
   };
   return (
-    <>
-      <Navbar bg="light" expand="lg" className={Styles.bottomHeader}>
-        <Container>
-          <Navbar aria-controls="basic-navbar-nav" />
-          <Nav className={Styles.nav}>
-            <Link className="mybtn mybtn-def" to="/"><FontAwesomeIcon icon={fontawesomeIcon.faCalendarAlt} /></Link>
-            <Link className="mybtn mybtn-def" to="/explore"><FontAwesomeIcon icon={fontawesomeIcon.faSearch} /></Link>
-            <Link className="mybtn mybtn-def" to="/new-event"><FontAwesomeIcon icon={fontawesomeIcon.faPlus} /></Link>
-          </Nav>
-        </Container>
-      </Navbar>
+    <>{auth.account ? <Navbar bg="light" expand="lg" className={Styles.bottomHeader}>
+      <Container>
+        <Navbar aria-controls="basic-navbar-nav" />
+        <Nav className={Styles.nav}>
+          <Link className={Styles.NavBtn} to="/"><FontAwesomeIcon icon={fontawesomeIcon.faCalendarAlt} /></Link>
+          <Link className={Styles.NavBtn} to="/explore"><FontAwesomeIcon icon={fontawesomeIcon.faSearch} /></Link>
+          <Link className={Styles.NavBtn} to="/new-event"><FontAwesomeIcon icon={fontawesomeIcon.faPlus} /></Link>
+        </Nav>
+      </Container>
+    </Navbar> : ''}
+
       <Outlet />
     </>)
 }

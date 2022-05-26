@@ -1,5 +1,13 @@
 @import 'Variables.module';
 
+.TemplateRowContainer {
+    display: flex;
+    // justify-content: space-around;
+    flex-flow: row wrap;
+    width: 100%;
+    gap: 2%;
+}
+
 .container {
 
     h1,
@@ -71,6 +79,12 @@
     background-color: $remove-color;
 }
 
+button:disabled,
+button[disabled] {
+    color: $tinted-color  !important;
+    background-color: rgb(223, 223, 223) !important;
+}
+
 .ButtonsDiv {
     // display: inline-block;
     // margin: auto;
@@ -83,6 +97,7 @@
     flex: 1;
 }
 
+.TextInput input[type=number],
 .TextInput input[type=email],
 .TextInput input[type=password],
 .TextInput input[type=text],
@@ -100,4 +115,55 @@
     outline: none;
     border: 0 !important;
     border-bottom: 3px solid $def-color  !important;
+}
+
+
+div label input {
+    margin-right: 100px;
+}
+
+.ckButton {
+    margin: 4px;
+    background-color: #EFEFEF;
+    border-radius: 4px;
+    overflow: auto;
+    float: left;
+    min-width: fit-content;
+    font-weight: 700;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: middle;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    border: 0;
+    padding: 3px 4px;
+    font-size: 15px;
+    line-height: 1.5;
+    // width: 75px;
+    transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+}
+
+.ckButton label {
+    float: left;
+    width: 4.0em;
+}
+
+.ckButton label span {
+    text-align: center;
+    padding: 3px 0px;
+    display: block;
+}
+
+.ckButton label input {
+    position: absolute;
+    top: -20px;
+}
+
+.ckButton input:checked+span {
+    background-color: $add-color;
+    color: #fff;
+    // padding: 3px 4px;
+    margin: -3px -4px;
 }

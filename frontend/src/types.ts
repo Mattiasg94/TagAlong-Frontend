@@ -30,6 +30,7 @@ export interface Event {
   invites: User[]
   participants: User[]
   title: string
+  max_invites: number
 }
 
 export interface Template {
@@ -41,6 +42,7 @@ export interface Template {
   id?: number
   invites: User[]
   title?: string
+  max_invites: number
 }
 
 export interface FriendRequest {

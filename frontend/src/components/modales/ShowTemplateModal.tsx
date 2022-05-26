@@ -12,13 +12,13 @@ import axios from 'axios';
 
 const headers: any = { "X-CSRFTOKEN": csrftoken }
 
-type ShowEventModalType = {
+type ShowTemplateModalType = {
     modalIsOpen: any,
     setModalIsOpen: any,
-    event: Event,
+    template: Template,
     currentUser: User
 }
-const ShowEventModal = ({ modalIsOpen, setModalIsOpen, event, currentUser }: ShowEventModalType) => {
+const ShowTemplateModal = ({ modalIsOpen, setModalIsOpen, template, currentUser }: ShowTemplateModalType) => {
     const [friendRequests, setFriendRequests] = useState<FriendRequest[]>([]);
     useEffect(() => {
         fetchFriendRequests()
@@ -55,7 +55,7 @@ const ShowEventModal = ({ modalIsOpen, setModalIsOpen, event, currentUser }: Sho
     }
     function renderUsers(users: User[]) {
         return users.map((user) => (
-            <div key={`showEvent-user-${user.id}`} className={Styles.user}>
+            <div key={`showTemplate-user-${user.id}`} className={Styles.user}>
                 <article >
                     <table>
                         <tbody>
@@ -98,29 +98,22 @@ const ShowEventModal = ({ modalIsOpen, setModalIsOpen, event, currentUser }: Sho
                 contentLabel="Example Modal"
             >
                 <div className={Styles.info}>
-                    <a target="_blank" href={event.adress_link}><p>{event.adress}</p></a>
-                    <h2>{event.title}</h2>
+                    <a target="_blank" href={template.adress_link}><p>{template.adress}</p></a>
+                    <h2>{template.title}</h2>
                     <div className={`${Styles.flowRoot} mb-3`}>
-                        <p className={Styles.name}>{event.user.username} {event.user.full_name}</p>
-                        <p className={Styles.date}>{formatDate(event.date)}</p>
+                        <p className={SStyles.center}>{template.user.username} {template.user.full_name}</p>
                     </div>
                     <div className='mb-3'>
-                        <p>{event.description}</p>
+                        <p>{template.description}</p>
                     </div>
                 </div>
-                {event.participants.length === 0 ?
-                    <h3 className={SStyles.center}>No participants</h3>
-                    :
-                    <><h3 className={SStyles.center}>Participants</h3>
-                        {/* @ts-ignore */}
-                        {renderUsers(event.participants)}</>}
                 <h3 className={SStyles.center}>Invites</h3>
                 {/* @ts-ignore */}
-                {renderUsers(event.invites.filter((i) => !event.participants?.map((p) => p.id).includes(i.id)))}
+                {renderUsers(template.invites.filter((i) => !template.participants?.map((p) => p.id).includes(i.id)))}
                 <button className={`${Styles.closeBtn} ${Styles.button} ${Styles.def}`} onClick={closeModal}>close</button>
             </Modal>
         </div>
     )
 }
 
-export default ShowEventModal
+export default ShowTemplateModal

@@ -5,17 +5,17 @@
   padding-top: 5px;
 }
 
+.info>div {
+  display: flex;
+  gap: 10px;
+}
+
 .ButtonsDiv {
   margin-top: auto;
 }
 
 .template {
-
-
-
-  // .templateIsActive {
-  //   background-color: $def-color  !important;
-  // }
+  width: 49%;
 
   .templateIsActive {
     // background-color: $def-color  !important;
@@ -26,7 +26,7 @@
     border-radius: .5rem;
     box-shadow: 0 1px 2px 1px #00000020;
     margin: auto;
-    margin-bottom: 4px;
+    margin-bottom: 7px;
     // padding: 0.4em;
     cursor: pointer;
     min-height: 100px;

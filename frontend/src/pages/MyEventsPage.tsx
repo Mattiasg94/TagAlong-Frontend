@@ -11,6 +11,7 @@ import ConfirmModal from '../components/modales/ConfirmModal';
 import { Subject } from 'rxjs';
 import Styles from '../styles/css/MyEventsPage.module.scss'
 import SStyles from '../styles/css/Shared.module.scss'
+import LoadingSpinner from '../hooks/LoadingSpinner';
 
 const headers: any = { "X-CSRFTOKEN": csrftoken }
 enum EVENT_ACTIVITY {
@@ -20,6 +21,8 @@ enum EVENT_ACTIVITY {
 export default function MyEventsPage() {
     const navigate = useNavigate();
     let confirmModalClick = new Subject()
+    const [isLoading, setIsLoading] = useState(true);
+
     const [events, setEvents] = useState<Event[]>([]);
     const [filteredEvents, setFilteredEvents] = useState<Event[]>([])
     const currentUser = FetchCurrentUser()
@@ -40,17 +43,20 @@ export default function MyEventsPage() {
 
     function fetchEvents() {
         axios
-            .get("api/events/")
+            .get(`api/events/${currentUser.id}/myevents/`)
             .then((res) => {
                 setEvents(res.data)
+                setIsLoading(false)
             })
             .catch((error) => console.warn(error));
     }
     useEffect(() => {
-        fetchEvents()
-    }, [])
+        if (currentUser) {
+            fetchEvents()
+        }
+    }, [currentUser])
     useEffect(() => {
-        if (events.length !== 0) {
+        if (!isLoading) {
             if (typeof (activeView) === 'undefined') {
                 FilterEvents(EVENT_ACTIVITY.ATTENDING)
             } else {
@@ -73,8 +79,8 @@ export default function MyEventsPage() {
         e.stopPropagation();
         openConfirmModal(event)
     }
-    confirmModalClick.subscribe({ next: (data) => EditOrDelete(data) }
-    )
+    confirmModalClick.subscribe({ next: (data) => EditOrDelete(data) })
+
     async function EditOrDelete(data: any) {
         if (data.action === 'edit') {
             navigate('/new-event', { state: { event: data.event } })
@@ -105,6 +111,7 @@ export default function MyEventsPage() {
     }
 
     return <div className={SStyles.container}>
+        {isLoading ? <LoadingSpinner /> : ''}
         <div className={Styles.TabDiv}>
             <button onClick={() => { FilterEvents(EVENT_ACTIVITY.ATTENDING) }} className={`${Styles.Tab} ${activeView === EVENT_ACTIVITY.ATTENDING ? Styles.Active : ''}`}>Attending</button>
             <button onClick={() => { FilterEvents(EVENT_ACTIVITY.MY_EVENTS) }} className={`${Styles.Tab} ${activeView === EVENT_ACTIVITY.MY_EVENTS ? Styles.Active : ''}`}>My Events</button>
@@ -122,7 +129,7 @@ export default function MyEventsPage() {
         <EventItem events={filteredEvents} openModal={openModal} EventAction={activeView === EVENT_ACTIVITY.ATTENDING ? Decline : OpenEditOrDeleteModal} EventActionBtnText={activeView === EVENT_ACTIVITY.ATTENDING ? 'Decline' : 'Edit'} />
         {
             modalEvent ?
-                <ShowEventModal modalIsOpen={modalIsOpen} setModalIsOpen={setModalIsOpen} eventOrTemplate={modalEvent} currentUser={currentUser} />
+                <ShowEventModal modalIsOpen={modalIsOpen} setModalIsOpen={setModalIsOpen} event={modalEvent} currentUser={currentUser} />
                 : ''
         }
         <ConfirmModal modalIsOpen={confirmModalIsOpen} setModalIsOpen={setConfirmModalIsOpen} confirmModalData={confirmModalData} confirmModalClick={confirmModalClick} />

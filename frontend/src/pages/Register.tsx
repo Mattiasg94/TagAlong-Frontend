@@ -16,7 +16,7 @@ function Register() {
 
   const handleRegistration = (first_name: string, last_name: string, username: string, email: string, password: string) => {
     axios
-      .post(`api/auth/register/`, { username, email, password }, { headers: headers })
+      .post(`api/auth/register/`, { username, first_name, last_name, email, password }, { headers: headers })
       .then((res) => {
         dispatch(
           authSlice.actions.setAuthTokens({
@@ -76,7 +76,7 @@ function Register() {
           <input
             id="last_name"
             type="text"
-            placeholder="First Name"
+            placeholder="Last Name"
             name="last_name"
             value={formik.values.last_name}
             onChange={formik.handleChange}

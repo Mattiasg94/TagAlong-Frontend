@@ -60,7 +60,7 @@ const Friends = ({ filteredUsers, currentUser, friendRequests, friendRequestToId
     }
     function renderFriends() {
         return filteredUsers.map((user) => (
-            <div key={user.id} className={Styles.user}>
+            <div key={`friends-user-${user.id}`} className={Styles.user}>
                 <article >
                     <table>
                         <tbody>
