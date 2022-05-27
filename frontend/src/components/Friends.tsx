@@ -72,7 +72,7 @@ const Friends = ({ filteredUsers, currentUser, friendRequests, friendRequestToId
                                     {user.full_name}
                                 </td>
                                 <td className={Styles.buttonTd} style={{ display: currentUser.friends.map((friend) => friend.id).includes(user.id) ? '' : 'none' }}>
-                                    <button onClick={() => RemoveFriend(user)} className={Styles.remove}>Remove</button>
+                                    <button onClick={() => RemoveFriend(user)} className={Styles.del}>Remove</button>
                                 </td>
                                 <td className={Styles.buttonTd} style={{ display: (!currentUser.friends.map((friend) => friend.id).includes(user.id) && !friendRequestToIds.includes(user.id)) ? '' : 'none' }} >
                                     <button onClick={() => SendFriendRequest(user)} className={Styles.add}>Follow</button>

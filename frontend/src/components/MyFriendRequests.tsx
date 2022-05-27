@@ -74,7 +74,7 @@ const MyFriendRequests = ({ users, currentUser, fetchFriendRequests, fetchUsers 
                                     {user.full_name}
                                 </td>
                                 <td className={Styles.buttonTd}>
-                                    <button className={Styles.remove} onClick={() => DeclineFriendRequest(user)}  >Decline</button>
+                                    <button className={Styles.del} onClick={() => DeclineFriendRequest(user)}  >Decline</button>
                                     <button className={Styles.add} onClick={() => AcceptFriendRequest(user)}>Accept</button>
                                 </td>
                                 {/* <td className={Styles.buttonTd}>

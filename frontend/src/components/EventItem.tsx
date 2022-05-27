@@ -1,21 +1,38 @@
 import React from 'react';
 import Styles from '../styles/css/EventItem.module.scss'
-import { Event } from '../types';
+import { Event, User } from '../types';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import * as fontawesomeIcon from '../styles/fontawesome'
 import formatDate from '../hooks/formatDate';
+import SStyles from '../styles/css/Shared.module.scss'
 
 
 type EventItemType = {
+    currentUser: User
     events: Event[],
     openModal: any
     EventAction: any
     EventActionBtnText: string
 }
+const days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+const EventItem = ({ currentUser, events, openModal, EventAction, EventActionBtnText }: EventItemType): JSX.Element => {
+    let currentDivider = ''
+    let dayCounter = 0
+    const nowDate = new Date()
 
-const EventItem = ({ events, openModal, EventAction, EventActionBtnText }: EventItemType): JSX.Element => {
-    return <>{events.map((event) => (
+    function getDateDevider(event: Event): string | boolean { // TODO fix so it works with hours also
+        const newDivider = String(days[(new Date(event.date)).getDay()])
+        if (currentDivider !== newDivider && dayCounter !== 6) {
+            currentDivider = newDivider
+            dayCounter = dayCounter + 1
+            return newDivider
+        }
+        return false
+        // const days = Math.round(((new Date(event.date)).getTime() - nowDate.getTime()) / (1000 * 60 * 60 * 24));
+    }
+    return <>{events.map((event, idx) => (
         <div className={Styles.event} key={`event-${event.id}`}>
+            <p className={`${SStyles.center} m-0`}>{getDateDevider(event) ?? ''}</p>
             <article onClick={() => openModal(event)}>
                 <table>
                     <tbody>
@@ -35,7 +52,7 @@ const EventItem = ({ events, openModal, EventAction, EventActionBtnText }: Event
                                 <p><FontAwesomeIcon icon={fontawesomeIcon.faUserCheck} /> <b>{event.participants.length}</b></p>
                             </td>
                             <td>
-                                <p>{event.user.username}</p>
+                                <p><FontAwesomeIcon className={`${currentUser.friends.map((f) => f.id).includes(event.user.id) ? SStyles.addC : SStyles.delC}`} icon={fontawesomeIcon.faUserFriends} />{event.user.username}</p>
                             </td>
                             <td className={Styles.buttonTd}>
                                 <button className={Styles.add} onClick={(e) => EventAction(e, event)}>{EventActionBtnText}</button>

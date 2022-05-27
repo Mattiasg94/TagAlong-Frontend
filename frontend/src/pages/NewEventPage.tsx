@@ -56,7 +56,7 @@ export default function NewEventPage() {
         if (currentUser) {
             INITIAL_FORM_STATE = {
                 user: currentUser, id: undefined, title: 'Title', description: 'Description', date: new Date(),
-                adress_link: 'https://google.com', adress: 'Adress', invites: [], max_invites: 0
+                adress_link: 'https://google.com', adress: 'Adress', invites: [currentUser], max_invites: 0
             }
             fetchTemplates()
             setFormEventData(INITIAL_FORM_STATE);

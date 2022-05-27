@@ -32,19 +32,19 @@ function Register() {
 
   const formik = useFormik({
     initialValues: {
-      first_name: '',
-      last_name: '',
-      username: '',
-      email: "",
-      password: "",
+      first_name: 'mattias',
+      last_name: 'gerle',
+      username: 'mattias',
+      email: "mattiasg_94@hotmail.com",
+      password: "testtest",
     },
     onSubmit: (values) => {
       handleRegistration(values.first_name, values.last_name, values.username, values.email, values.password);
     },
     validationSchema: Yup.object({
-      username: Yup.string().trim().required("Req"),
-      email: Yup.string().trim().required("Req"),
-      password: Yup.string().trim().required("Req"),
+      // username: Yup.string().trim().required("Req"),
+      // email: Yup.string().trim().required("Req"),
+      // password: Yup.string().trim().required("Req"),
     }),
   });
 
@@ -61,6 +61,7 @@ function Register() {
             value={formik.values.username}
             onChange={formik.handleChange}
             onBlur={formik.handleBlur}
+            required
           />
           {formik.errors.username ? <div>{formik.errors.username} </div> : null}
           <input
@@ -71,6 +72,7 @@ function Register() {
             value={formik.values.first_name}
             onChange={formik.handleChange}
             onBlur={formik.handleBlur}
+            required
           />
           {formik.errors.first_name ? <div>{formik.errors.first_name} </div> : null}
           <input
@@ -81,6 +83,7 @@ function Register() {
             value={formik.values.last_name}
             onChange={formik.handleChange}
             onBlur={formik.handleBlur}
+            required
           />
           {formik.errors.last_name ? <div>{formik.errors.last_name} </div> : null}
           <input
@@ -91,6 +94,7 @@ function Register() {
             value={formik.values.email}
             onChange={formik.handleChange}
             onBlur={formik.handleBlur}
+            required
           />
           {formik.errors.email ? <div>{formik.errors.email} </div> : null}
           <input
@@ -101,6 +105,7 @@ function Register() {
             value={formik.values.password}
             onChange={formik.handleChange}
             onBlur={formik.handleBlur}
+            required
           />
           {formik.errors.password ? (
             <div>{formik.errors.password} </div>

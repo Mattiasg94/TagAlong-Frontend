@@ -20,8 +20,6 @@ type HandleInvitesType = {
 const HandleInvites = ({ currentUser, modalIsOpen, setModalIsOpen, myFriends, formEventData, setFormEventData, setNumInvites }: HandleInvitesType) => {
 
     function afterOpenModal() {
-        //@ts-ignore
-        // subtitle.style.color = '#f00';
     }
     function closeModal() {
         setModalIsOpen(false);
@@ -55,7 +53,7 @@ const HandleInvites = ({ currentUser, modalIsOpen, setModalIsOpen, myFriends, fo
                                     <button className={Styles.add} onClick={() => { SetInvites(friend, true) }}>Add</button>
                                 </td>
                                 <td className={Styles.buttonTd} style={{ display: !formEventData.invites.map((i) => i.id).includes(friend?.id!) ? 'none' : '' }}>
-                                    <button className={Styles.remove} onClick={() => { SetInvites(friend) }} disabled={currentUser.id === friend.id}>Remove</button>
+                                    <button className={Styles.del} onClick={() => { SetInvites(friend) }} disabled={currentUser.id === friend.id}>Remove</button>
                                 </td>
                             </tr>
                         </tbody>

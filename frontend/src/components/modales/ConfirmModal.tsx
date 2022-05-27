@@ -37,11 +37,11 @@ const ConfirmModal = ({ modalIsOpen, setModalIsOpen, confirmModalData, confirmMo
                 onRequestClose={closeModal}
                 contentLabel="Example Modal"
             >
-                <div className={SStyles.container}>
+                <div>
                     <h3 className={`${SStyles.center} mb-4 mt-3`}>{confirmModalData.title}</h3>
                     <div className={SStyles.ButtonsDiv}>
                         <button className={`${SStyles.button} ${SStyles.def}`} onClick={closeModal}>Close</button>
-                        <button className={`${SStyles.button} ${SStyles.remove}`} onClick={() => { handleModalAction('delete') }}>{confirmModalData.btn1Text}</button>
+                        <button className={`${SStyles.button} ${SStyles.del}`} onClick={() => { handleModalAction('delete') }}>{confirmModalData.btn1Text}</button>
                         <button className={`${SStyles.button} ${SStyles.add}`} onClick={() => { handleModalAction('edit') }}>{confirmModalData.btn2Text}</button>
                     </div>
                 </div>

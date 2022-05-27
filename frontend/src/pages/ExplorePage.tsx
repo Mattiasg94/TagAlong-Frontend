@@ -70,7 +70,7 @@ export default function ExplorePage() {
     return (
         <div className={SStyles.container}>
             {isLoading ? <LoadingSpinner /> : ''}
-            <EventItem events={events} openModal={openModal} EventAction={openConfirmModal} EventActionBtnText={'Attend'} />
+            <EventItem currentUser={currentUser} events={events} openModal={openModal} EventAction={openConfirmModal} EventActionBtnText={'Attend'} />
             {(events.length === 0 && !isLoading) ?
                 <div className={`${SStyles.VertCenter} ${SStyles.center}`}>
                     <h4>No Events</h4>

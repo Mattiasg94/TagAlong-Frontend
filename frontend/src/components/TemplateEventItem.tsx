@@ -30,11 +30,11 @@ const TemplateEventItem = ({ handleDelete, templateIsActive, templates, handleEd
                     <h6>{template.title}</h6>
                     <div>
                         <p><FontAwesomeIcon icon={fontawesomeIcon.faUserFriends} /> <b>{template.invites.length}</b></p>
-                        <p><FontAwesomeIcon icon={fontawesomeIcon.faPersonCircleXmark} /> <b>{template.max_invites}</b></p>
+                        <p><FontAwesomeIcon icon={fontawesomeIcon.faUserXmark} /> <b>{template.max_invites}</b></p>
                     </div>
                 </div>
                 <div className={`${SStyles.ButtonsDiv} ${Styles.ButtonsDiv}`}>
-                    {handleDelete ? <button className={`${SStyles.button} ${SStyles.remove} w-100`} onClick={(e) => handleDelete(e, template)}><FontAwesomeIcon icon={fontawesomeIcon.faTrashAlt} /></button> : ''}
+                    {handleDelete ? <button className={`${SStyles.button} ${SStyles.del} w-100`} onClick={(e) => handleDelete(e, template)}><FontAwesomeIcon icon={fontawesomeIcon.faTrashAlt} /></button> : ''}
                     <button className={`w-100 ${SStyles.button} ${SStyles.def}`} onClick={(e) => handleEdit(e, template)}>
                         {handleDelete ? <FontAwesomeIcon icon={fontawesomeIcon.faPencilAlt} /> : 'Select'}
                     </button>

@@ -8,7 +8,13 @@
     gap: 2%;
 }
 
+.container:last-of-type {
+    margin-bottom: 50px;
+}
+
 .container {
+    overflow-y: auto;
+
 
     h1,
     h2,
@@ -74,9 +80,21 @@
     background-color: $def-color;
 }
 
-.remove {
+.del {
     color: white;
-    background-color: $remove-color;
+    background-color: $del-color;
+}
+
+.addC {
+    color: $add-color;
+}
+
+.defC {
+    color: $def-color;
+}
+
+.delC {
+    color: $del-color;
 }
 
 button:disabled,
@@ -108,13 +126,25 @@ button[disabled] {
     border: none;
     border-bottom: 1px solid $tinted2-color;
     padding: 2%;
+    background-color: $body-color;
 }
 
+.TextInput input[type=number]:focus,
+.TextInput input[type=email]:focus,
+.TextInput input[type=password]:focus,
 .TextInput input[type=text]:focus,
 .TextInput textarea:focus {
     outline: none;
     border: 0 !important;
-    border-bottom: 3px solid $def-color  !important;
+    border-bottom: 3px solid $header-color  !important;
+}
+
+.TextInput input[type=number]:disabled,
+.TextInput input[type=email]:disabled,
+.TextInput input[type=password]:disabled,
+.TextInput input[type=text]:disabled,
+.TextInput textarea:disabled {
+    background-color: #EFEFEF;
 }
 
 

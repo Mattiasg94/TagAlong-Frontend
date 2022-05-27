@@ -4,6 +4,8 @@
     position: sticky;
     top: 0;
     width: 100%;
+    background-color: $bkg3-color  !important;
+    height: 50px;
 }
 
 .nav {
@@ -18,7 +20,8 @@
     position: fixed;
     bottom: 0;
     width: 100%;
-    background-color: rgb(210, 210, 234) !important;
+    background-color: $bkg3-color  !important;
+    height: 50px;
 }
 
 .buttons {

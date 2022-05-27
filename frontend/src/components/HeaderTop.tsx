@@ -30,7 +30,7 @@ export default function Header() {
           <Nav className={Styles.nav} >
             {auth.account ?
               <>
-                <Link className={Styles.NavBtn} to="/users"><FontAwesomeIcon icon={fontawesomeIcon.faUserFriends} /></Link>
+                <Link className={Styles.NavBtn} to="/users"><FontAwesomeIcon icon={fontawesomeIcon.faUsers} /></Link>
                 <Link className={Styles.NavBtn} to="/profile"><FontAwesomeIcon icon={fontawesomeIcon.faUser} /></Link>
                 <button className={Styles.NavBtn} onClick={handleLogout}><FontAwesomeIcon icon={fontawesomeIcon.faSignOut} /></button>
               </>

@@ -24,7 +24,7 @@ export interface Event {
   user: User,
   adress?: string
   adress_link?: string
-  date?: any
+  date: string
   description?: string
   id: number
   invites: User[]

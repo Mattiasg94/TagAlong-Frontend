@@ -126,7 +126,7 @@ export default function MyEventsPage() {
                 <h4>You have no upcomming events</h4>
                 <p>Create new events</p>
             </div> : ''}
-        <EventItem events={filteredEvents} openModal={openModal} EventAction={activeView === EVENT_ACTIVITY.ATTENDING ? Decline : OpenEditOrDeleteModal} EventActionBtnText={activeView === EVENT_ACTIVITY.ATTENDING ? 'Decline' : 'Edit'} />
+        <EventItem currentUser={currentUser} events={filteredEvents} openModal={openModal} EventAction={activeView === EVENT_ACTIVITY.ATTENDING ? Decline : OpenEditOrDeleteModal} EventActionBtnText={activeView === EVENT_ACTIVITY.ATTENDING ? 'Decline' : 'Edit'} />
         {
             modalEvent ?
                 <ShowEventModal modalIsOpen={modalIsOpen} setModalIsOpen={setModalIsOpen} event={modalEvent} currentUser={currentUser} />
