@@ -3,10 +3,11 @@ import { csrftoken } from '../csrftoken';
 import React, { useState, useEffect } from 'react';
 import { FriendRequest, User } from "../types";
 import Styles from '../styles/css/Friends.module.scss'
+import {url} from '../routes';
 
 const headers: any = { "X-CSRFTOKEN": csrftoken }
 
-const API_URL = 'http://localhost:8000/';
+const API_URL = 'http://api.tagalong.me/';
 type FriendsType = {
     filteredUsers: User[],
     currentUser: User,
@@ -33,7 +34,7 @@ const Friends = ({ filteredUsers, currentUser, friendRequests, friendRequestToId
         // for(let pair of formData.entries()){
         //     console.log(pair[0],pair[1])
         // }
-        axios.put(`api/user/${currentUser.id}/`, formData, { headers: headers })
+        axios.put(`${url}api/user/${currentUser.id}/`, formData, { headers: headers })
             .then((res) => {
                 fetchUsers()
             })
@@ -44,7 +45,7 @@ const Friends = ({ filteredUsers, currentUser, friendRequests, friendRequestToId
         const formData = new FormData()
         formData.append('from_user', currentUser.id.toString())
         formData.append('to_user', user.id.toString())
-        axios.post("api/friend-request/", formData, { headers: headers })
+        axios.post(`${url}api/friend-request/`, formData, { headers: headers })
             .then((res) => {
                 fetchFriendRequests()
             })
@@ -52,7 +53,7 @@ const Friends = ({ filteredUsers, currentUser, friendRequests, friendRequestToId
     }
     function RemoveFriendRequest(user: User) {
         let friendRequestId = friendRequests.filter((v, i, a) => { return v['to_user'] === user.id })[0]['id']
-        axios.delete(`api/friend-request/${friendRequestId}/`, { headers: headers })
+        axios.delete(`${url}api/friend-request/${friendRequestId}/`, { headers: headers })
             .then((res) => {
                 fetchFriendRequests()
             })

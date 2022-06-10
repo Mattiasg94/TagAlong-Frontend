@@ -5,9 +5,9 @@ import { User, FriendRequest } from '../types';
 import Styles from '../styles/css/MyFriendRequests.module.scss'
 import SStyles from '../styles/css/Shared.module.scss'
 
+import {url} from '../routes';
 const headers: any = { "X-CSRFTOKEN": csrftoken }
 
-const API_URL = 'http://localhost:8000/';
 type MyFriendRequestsType = {
     users: User[],
     currentUser: User,
@@ -19,7 +19,7 @@ const MyFriendRequests = ({ users, currentUser, fetchFriendRequests, fetchUsers 
 
     function fetchMyFriendRequests() {
         axios
-            .get(API_URL + `api/friend-request/${currentUser.id}/to_user/`)
+            .get(`${url}api/friend-request/${currentUser.id}/to_user/`)
             .then((res) => {
                 setMyFriendRequests(res.data)
             })
@@ -39,7 +39,7 @@ const MyFriendRequests = ({ users, currentUser, fetchFriendRequests, fetchUsers 
             else// @ts-ignore
                 formData.append(key, currentUser[key]);
         }
-        axios.put(API_URL + `api/user/${currentUser.id}/`, formData, { headers: headers })
+        axios.put(`${url}api/user/${currentUser.id}/`, formData, { headers: headers })
             .then((res) => {
                 fetchFriendRequests()
                 fetchMyFriendRequests()
@@ -53,7 +53,7 @@ const MyFriendRequests = ({ users, currentUser, fetchFriendRequests, fetchUsers 
             return
         const friendRequest: FriendRequest = myFriendRequests.filter(fr => fr.from_user === user.id)[0]
         axios
-            .delete(API_URL + `api/friend-request/${friendRequest.id}/`)
+            .delete(`${url}api/friend-request/${friendRequest.id}/`)
             .then((res) => {
                 setMyFriendRequests(myFriendRequests.filter(fr => fr.from_user !== user.id))
             })

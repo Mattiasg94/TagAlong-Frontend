@@ -10,6 +10,7 @@ import SStyles from '../../styles/css/Shared.module.scss'
 import { csrftoken } from '../../csrftoken';
 import axios from 'axios';
 
+import {url} from '../../routes';
 const headers: any = { "X-CSRFTOKEN": csrftoken }
 
 type ShowTemplateModalType = {
@@ -31,7 +32,7 @@ const ShowTemplateModal = ({ modalIsOpen, setModalIsOpen, template, currentUser 
     }
     function fetchFriendRequests() {
         axios
-            .get(`api/friend-request/${currentUser.id}/from_user/`)
+            .get(`${url}api/friend-request/${currentUser.id}/from_user/`)
             .then((res) => {
                 setFriendRequests(res.data)
             })
@@ -41,14 +42,14 @@ const ShowTemplateModal = ({ modalIsOpen, setModalIsOpen, template, currentUser 
         const formData = new FormData()
         formData.append('from_user', currentUser.id.toString())
         formData.append('to_user', user.id.toString())
-        axios.post("api/friend-request/", formData, { headers: headers })
+        axios.post(`${url}api/friend-request/`, formData, { headers: headers })
             .then((res) => {
             })
             .catch(errors => console.warn(errors));
     }
     function RemoveFriendRequest(user: User) {
         let friendRequestId = friendRequests.filter((v, i, a) => { return v['to_user'] === user.id })[0]['id']
-        axios.delete(`api/friend-request/${friendRequestId}/`, { headers: headers })
+        axios.delete(`${url}api/friend-request/${friendRequestId}/`, { headers: headers })
             .then((res) => {
             })
             .catch(errors => console.warn(errors));

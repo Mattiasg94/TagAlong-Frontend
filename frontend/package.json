@@ -2,7 +2,6 @@
   "name": "frontend",
   "version": "0.1.0",
   "private": true,
-  "proxy": "http://localhost:8000",
   "dependencies": {
     "@babel/preset-env": "^7.18.0",
     "@fortawesome/fontawesome-svg-core": "^6.1.1",

@@ -14,6 +14,7 @@ import HandleInvites from './HandleInvites';
 import { useLocation } from 'react-router-dom';
 import { Event } from '../types';
 import SStyles from '../styles/css/Shared.module.scss'
+import {url} from '../routes';
 
 const headers: any = { "X-CSRFTOKEN": csrftoken }
 
@@ -88,7 +89,7 @@ const EventForm = ({ INITIAL_FORM_STATE, setNumInvites, numInvites, setTemplateI
     // }
 
     if (btnIdPressed === FORM_BTN.POST_EVENT) {
-      axios.post(`api/events/${currentUser.id}/`, formData, { headers: headers })
+      axios.post(`${url}api/events/${currentUser.id}/`, formData, { headers: headers })
         .then((res) => {
           openMessageBar(res.data.msgType, res.data.msg)
           setFormEventData(INITIAL_FORM_STATE)
@@ -97,7 +98,7 @@ const EventForm = ({ INITIAL_FORM_STATE, setNumInvites, numInvites, setTemplateI
           setNumInvites(1)
         }).catch(errors => console.warn(errors));
     } else if (btnIdPressed === FORM_BTN.UPDATE_EVENT) {
-      axios.put(`api/event/${formData.get('id')}/`, formData, { headers: headers })
+      axios.put(`${url}api/event/${formData.get('id')}/`, formData, { headers: headers })
         .then((res) => {
           openMessageBar(res.data.msgType, res.data.msg)
           setFormEventData(INITIAL_FORM_STATE)
@@ -106,7 +107,7 @@ const EventForm = ({ INITIAL_FORM_STATE, setNumInvites, numInvites, setTemplateI
         }).catch(errors => console.warn(errors));
     }
     else if (btnIdPressed === FORM_BTN.ADD_TEMPLATE) {
-      axios.post(`api/templates/${currentUser.id}/`, formData, { headers: headers })
+      axios.post(`${url}api/templates/${currentUser.id}/`, formData, { headers: headers })
         .then((res) => {
           openMessageBar(res.data.msgType, res.data.msg)
           setFormEventData(INITIAL_FORM_STATE)
@@ -115,7 +116,7 @@ const EventForm = ({ INITIAL_FORM_STATE, setNumInvites, numInvites, setTemplateI
         }).catch(errors => console.warn(errors));
     }
     else if (btnIdPressed === FORM_BTN.UPDATE_TEMPLATE) {
-      axios.put(`api/template/${formData.get('id')}/`, formData, { headers: headers })
+      axios.put(`${url}api/template/${formData.get('id')}/`, formData, { headers: headers })
         .then((res) => {
           openMessageBar(res.data.msgType, res.data.msg)
           setFormEventData(INITIAL_FORM_STATE)
@@ -128,7 +129,7 @@ const EventForm = ({ INITIAL_FORM_STATE, setNumInvites, numInvites, setTemplateI
   useEffect(() => {
     if (currentUser) {
       axios
-        .get(`api/eventUsers/${currentUser.friends.map((friend) => friend.id).join(',')}/`)
+        .get(`${url}api/eventUsers/${currentUser.friends.map((friend) => friend.id).join(',')}/`)
         .then((res) => {
           setMyFriends(res.data)
         })

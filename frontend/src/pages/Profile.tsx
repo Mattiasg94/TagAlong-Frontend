@@ -9,6 +9,7 @@ import SStyles from '../styles/css/Shared.module.scss'
 import { useMessageBar } from "../components/MessageBar/useMessageBar";
 import { MessageBar } from "../components/MessageBar/MessageBar";
 
+import {url} from '../routes';
 const headers: any = { "X-CSRFTOKEN": csrftoken }
 
 const Profile = () => {
@@ -38,7 +39,7 @@ const Profile = () => {
     }
     if (!handleValidation(formData))
       return
-    axios.put(`api/user/${currentUser.id}/`, formData, { headers: headers })
+    axios.put(`${url}api/user/${currentUser.id}/`, formData, { headers: headers })
       .then((res) => {
         openMessageBar('info', 'Profile Updated')
       })

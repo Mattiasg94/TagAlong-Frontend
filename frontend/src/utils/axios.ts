@@ -3,6 +3,7 @@ import createAuthRefreshInterceptor from 'axios-auth-refresh';
 import store from '../store';
 import authSlice from '../store/slices/auth';
 
+import {url} from '../routes';
 const axiosService = axios.create({
     baseURL: process.env.REACT_APP_API_URL,
     headers: {
@@ -44,7 +45,7 @@ const refreshAuthLogic = async (failedRequest) => {
     console.log(refreshToken)
     return axios
         .post(
-            'api/auth/refresh/',
+            `${url}api/auth/refresh/`,
             {
                 refresh: refreshToken,
             },

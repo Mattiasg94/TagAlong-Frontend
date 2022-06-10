@@ -24,3 +24,6 @@ const ProtectedRoute = () => {
   return auth.account ? <Outlet /> : <Navigate to={"/login"} />;
 }
 export default ProtectedRoute;
+
+export const url= "http://api.tagalong.me/"
+

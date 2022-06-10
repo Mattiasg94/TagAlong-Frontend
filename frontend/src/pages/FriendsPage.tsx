@@ -8,6 +8,7 @@ import { FriendRequest, User } from '../types';
 import SStyles from '../styles/css/Shared.module.scss'
 import LoadingSpinner from '../hooks/LoadingSpinner';
 
+import {url} from '../routes';
 
 const FriendsPage = () => {
     const [isLoading, setIsLoading] = useState(true);
@@ -19,7 +20,7 @@ const FriendsPage = () => {
     function fetchFriendRequests() {
         axios
             //@ts-ignore
-            .get(`api/friend-request/${currentUser.id}/from_user/`)
+            .get(`${url}api/friend-request/${currentUser.id}/from_user/`)
             .then((res) => {
                 //@ts-ignore
                 setFriendRequestToIds(res.data.map(req => req.to_user))
@@ -29,7 +30,7 @@ const FriendsPage = () => {
     }
     function fetchUsers() {
         axios
-            .get("api/allUsers/")
+            .get(`${url}api/allUsers/`)
             .then((res) => {
                 setUsers(res.data)
                 //@ts-ignore

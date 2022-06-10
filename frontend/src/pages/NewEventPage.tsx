@@ -11,6 +11,7 @@ import { csrftoken } from '../csrftoken';
 import SStyles from '../styles/css/Shared.module.scss'
 
 
+import {url} from '../routes';
 const headers: any = { "X-CSRFTOKEN": csrftoken }
 
 let INITIAL_FORM_STATE: Template
@@ -28,7 +29,7 @@ export default function NewEventPage() {
         if (!hasConfirmed)
             return
         axios
-            .delete('/api/template/' + template.id + '/', { headers: headers })
+            .delete(`${url}/api/template/` + template.id + `/`, { headers: headers })
             .then((res) => {
                 let hasErrors = openMessageBar(res.data.msgType, res.data.msg)
                 if (!hasErrors) {
@@ -46,7 +47,7 @@ export default function NewEventPage() {
 
     function fetchTemplates() {
         axios
-            .get(`api/templates/${currentUser.id}/`)
+            .get(`${url}api/templates/${currentUser.id}/`)
             .then((res) => {
                 setTemplates(res.data)
             })

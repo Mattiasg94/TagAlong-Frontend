@@ -8,6 +8,7 @@ import { useNavigate } from "react-router-dom";
 import { csrftoken } from "../csrftoken";
 import Styles from '../styles/css/Login.module.scss'
 import SStyles from '../styles/css/Shared.module.scss'
+import {url} from '../routes';
 
 
 const headers: any = { "X-CSRFTOKEN": csrftoken }
@@ -22,7 +23,7 @@ function Login() {
     // let username = 'mattias'
     let username = email
     axios
-      .post(`api/auth/login/`, { username, password }, { headers: headers })
+      .post(`${url}api/auth/login/`, { username, password }, { headers: headers })
       .then((res) => {
         dispatch(
           authSlice.actions.setAuthTokens({

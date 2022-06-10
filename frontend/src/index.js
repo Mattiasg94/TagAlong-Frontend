@@ -12,7 +12,7 @@ import App from './App';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 document.body.style.background = '#fef8f0';
-
+window.$url = "https://api.tagalong.me/";
 root.render(
   <Provider store={store}>
     <PersistGate persistor={persistor} loading={null}>

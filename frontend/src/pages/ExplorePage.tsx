@@ -11,6 +11,8 @@ import SStyles from '../styles/css/Shared.module.scss'
 import LoadingSpinner from '../hooks/LoadingSpinner';
 import ChooseTemplateForEventShare from '../components/modales/ChooseTemplateForEventShare';
 import { Subject } from 'rxjs';
+import {url} from '../routes';
+
 const headers: any = { "X-CSRFTOKEN": csrftoken }
 
 export default function ExplorePage() {
@@ -20,7 +22,6 @@ export default function ExplorePage() {
     const [modalIsOpen, setModalIsOpen] = useState(false);
     const [modalEvent, setModalEvent] = useState<Event>();
     const currentUser = FetchCurrentUser()
-
     let confirmModalClick = new Subject()
     const [confirmModalIsOpen, setConfirmModalIsOpen] = useState(false);
     const [confirmModalData, setConfirmModalData] = useState<Event>();
@@ -37,15 +38,13 @@ export default function ExplorePage() {
             Attend(data.event, data.template.id)
         }
     }
-
     function openModal(event: Event) {
         setModalIsOpen(true);
         setModalEvent(event)
     }
-
     function fetchEvents() {
         axios
-            .get(`api/events/${currentUser.id}/explore/`)
+            .get(`${url}api/events/${currentUser.id}/explore/`)
             .then((res) => {
                 //@ts-ignore
                 let eventsToShow = res.data.filter((event) => (event.user.id !== currentUser.id && !event.participants.map((p) => p.id).includes(currentUser.id)))
@@ -58,10 +57,9 @@ export default function ExplorePage() {
         if (currentUser)
             fetchEvents()
     }, [currentUser])
-
     function Attend(event: Event, templateId: number) {
         axios
-            .put(`api/event/${event.id}/attend/${currentUser?.id}/${templateId}/`, { headers: headers })
+            .put(`${url}api/event/${event.id}/attend/${currentUser?.id}/${templateId}/`, { headers: headers })
             .then((res) => {
                 fetchEvents()
             })

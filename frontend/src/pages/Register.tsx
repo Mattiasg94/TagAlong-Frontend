@@ -8,6 +8,7 @@ import { useNavigate } from "react-router-dom";
 import { csrftoken } from "../csrftoken";
 import SStyles from '../styles/css/Shared.module.scss'
 
+import {url} from '../routes';
 const headers: any = { "X-CSRFTOKEN": csrftoken }
 
 function Register() {
@@ -16,7 +17,7 @@ function Register() {
 
   const handleRegistration = (first_name: string, last_name: string, username: string, email: string, password: string) => {
     axios
-      .post(`api/auth/register/`, { username, first_name, last_name, email, password }, { headers: headers })
+      .post(`${url}api/auth/register/`, { username, first_name, last_name, email, password }, { headers: headers })
       .then((res) => {
         dispatch(
           authSlice.actions.setAuthTokens({

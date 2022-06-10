@@ -11,6 +11,7 @@ import axios from 'axios';
 import FetchCurrentUser from '../../FetchCurrentUser';
 import { Template, Event } from '../../types';
 
+import {url} from '../../routes';
 type ChooseTemplateForEventShareType = {
     modalIsOpen: any,
     setModalIsOpen: any,
@@ -25,7 +26,7 @@ const ChooseTemplateForEventShare = ({ modalIsOpen, setModalIsOpen, event, confi
     }
     function fetchTemplates() {
         axios
-            .get(`api/templates/${currentUser.id}/`)
+            .get(`${url}api/templates/${currentUser.id}/`)
             .then((res) => {
                 setTemplates(res.data)
             })

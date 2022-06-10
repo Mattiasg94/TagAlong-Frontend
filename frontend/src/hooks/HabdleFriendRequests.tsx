@@ -5,6 +5,7 @@ import FetchCurrentUser from '../FetchCurrentUser';
 import { FriendRequest, User } from '../types';
 import { csrftoken } from '../csrftoken';
 
+import {url} from '../routes';
 const headers: any = { "X-CSRFTOKEN": csrftoken }
 
 
@@ -17,7 +18,7 @@ export function AcceptFriendRequest(user: User, currentUser: User) {
         else// @ts-ignore
             formData.append(key, currentUser[key]);
     }
-    axios.put(`api/user/${currentUser.id}/`, formData, { headers: headers })
+    axios.put(`${url}api/user/${currentUser.id}/`, formData, { headers: headers })
         .then((res) => {
             return 2
         })
@@ -29,7 +30,7 @@ export function DeclineFriendRequest(user: User, myFriendRequests: FriendRequest
         return
     const friendRequest: FriendRequest = myFriendRequests.filter(fr => fr.from_user === user.id)[0]
     axios
-        .delete(`api/friend-request/${friendRequest.id}/`)
+        .delete(`${url}api/friend-request/${friendRequest.id}/`)
         .then((res) => {
             return res
         })

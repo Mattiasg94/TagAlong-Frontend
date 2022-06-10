@@ -13,6 +13,7 @@ import Styles from '../styles/css/MyEventsPage.module.scss'
 import SStyles from '../styles/css/Shared.module.scss'
 import LoadingSpinner from '../hooks/LoadingSpinner';
 
+import {url} from '../routes';
 const headers: any = { "X-CSRFTOKEN": csrftoken }
 enum EVENT_ACTIVITY {
     ATTENDING,
@@ -43,7 +44,7 @@ export default function MyEventsPage() {
 
     function fetchEvents() {
         axios
-            .get(`api/events/${currentUser.id}/myevents/`)
+            .get(`${url}api/events/${currentUser.id}/myevents/`)
             .then((res) => {
                 setEvents(res.data)
                 setIsLoading(false)
@@ -89,7 +90,7 @@ export default function MyEventsPage() {
             if (!hasConfirmed)
                 return
             axios
-                .delete('/api/event/' + data.event!.id + '/', { headers: headers })
+                .delete(`${url}/api/event/` + data.event!.id + `/`, { headers: headers })
                 .then((res) => {
                     fetchEvents()
                 })
@@ -103,7 +104,7 @@ export default function MyEventsPage() {
         if (!hasConfirmed)
             return
         axios
-            .put(`api/event/${event.id}/decline/${currentUser?.id}/`, { headers: headers })
+            .put(`${url}api/event/${event.id}/decline/${currentUser?.id}/`, { headers: headers })
             .then((res) => {
                 fetchEvents()
             })
